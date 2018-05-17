@@ -220,6 +220,9 @@ def get_stats(bursting, Fs):
         else:
             ends = np.append(ends, index)
 
+    if len(starts) > len(ends):
+        starts = starts[:len(ends)]
+    
     # duration of each burst
     durations = (ends - starts) / Fs
 
@@ -264,6 +267,8 @@ def _2threshold_split(x, thresh_hi, thresh_lo):
                     j_down_done = True
 
         j_up = i + 1
+        if j_up >= len(positive):
+            continue
         if positive[j_up] == 0:
             j_up_done = False
             while j_up_done is False:
